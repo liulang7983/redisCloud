@@ -4,30 +4,13 @@ server:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource  #当前数据源操作类型
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/mybatis?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: root
   redis:
-    cluster:
-      #集群节点
-      #nodes: 127.0.0.1:8001,127.0.0.1:8002,127.0.0.1:8003,127.0.0.1:8004,127.0.0.1:8005,127.0.0.1:8006
-      nodes: 127.0.0.1:6379
-      #最大重试次数
-      max-redirects: 5
-    #password: zhuge
-    lettuce:
-      pool:
-        min-idle: 0
-        max-idle: 8
-        max-active: 8
-        max-wait: -1
-        enabled: true
     host: 127.0.0.1
     port: 6379
-redisson:
-  address: redis://127.0.0.1:6379
-  password: zhuge
 #mybatis:配置
 mybatis:
   mapperLocations: classpath:mapper/*.xml

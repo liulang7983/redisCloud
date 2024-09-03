@@ -5,10 +5,11 @@ spring:
   redis:
     cluster:
       #集群节点
-      nodes: 127.0.0.1:8001,127.0.0.1:8002,127.0.0.1:8003,127.0.0.1:8004,127.0.0.1:8005,127.0.0.1:8006
+      #nodes: 127.0.0.1:8001,127.0.0.1:8002,127.0.0.1:8003,127.0.0.1:8004,127.0.0.1:8005,127.0.0.1:8006
+      nodes: 127.0.0.1:6379
       #最大重试次数
       max-redirects: 5
-    password: zhuge
+    #password: zhuge
     lettuce:
       pool:
         min-idle: 0
@@ -22,7 +23,7 @@ spring:
     username: root
     password: root
 redisson:
-  address: redis://127.0.0.1:8003
+  address: redis://127.0.0.1:6379
   password: zhuge
 #mybatis:配置
 mybatis:

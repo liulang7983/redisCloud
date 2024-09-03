@@ -5,7 +5,6 @@ package com.comfig;
  * @date 2023/4/20 17:07
  */
 
-import jdk.internal.util.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;

@@ -12,7 +12,7 @@ import org.redisson.config.Config;
 public class RedissonBloomFilter {
     public static void main(String[] args) {
         Config config = new Config();
-        config.useSingleServer().setAddress("redis://127.0.0.1:6379").setPassword("zhuge");
+        config.useSingleServer().setAddress("redis://127.0.0.1:6379");//.setPassword("zhuge");
         //构造Redisson
         RedissonClient redisson = Redisson.create(config);
 

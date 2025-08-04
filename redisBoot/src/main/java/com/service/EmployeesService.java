@@ -11,10 +11,10 @@ public interface EmployeesService {
     Employees getByName(String name);
     void test();
 
- /*   Employees getByNameRedisson(String name);
+   Employees getByNameRedisson(String name);
 
     Employees read(String name);
 
-    Employees write(String name);*/
+    Employees write(String name);
 
 }

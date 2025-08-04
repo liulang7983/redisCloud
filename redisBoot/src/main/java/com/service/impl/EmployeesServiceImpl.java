@@ -28,6 +28,10 @@ public class EmployeesServiceImpl implements EmployeesService {
     private BloomFilterUtil bloomFilterUtil;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private RedissonClient redissonClient;
+    @Autowired
+    private Redisson redisson;
 
     @Override
     public int create(Employees employees) {
@@ -54,7 +58,11 @@ public class EmployeesServiceImpl implements EmployeesService {
         if (employees==null){
             System.out.println("数据库获取");
             employees=employeesDao.getByName(name);
-            redisTemplate.opsForValue().set("employees:"+employees.getName(),employees,100,TimeUnit.SECONDS);
+            if (employees!=null){
+                redisTemplate.opsForValue().set("employees:"+employees.getName(),employees);
+                //redisTemplate.opsForValue().set("employees:"+employees.getName(),employees,100,TimeUnit.SECONDS);
+                bloomFilterUtil.add("employees:"+name);
+            }
         }
 
         return employees;
@@ -67,7 +75,7 @@ public class EmployeesServiceImpl implements EmployeesService {
         System.out.println(contain);
     }
 
-/*    @Override
+    @Override
     public Employees getByNameRedisson(String name) {
         String employeesLock="empLock"+name;
         RLock lock = redissonClient.getLock(employeesLock);
@@ -86,7 +94,8 @@ public class EmployeesServiceImpl implements EmployeesService {
         }
         if (employees==null){
             employees=employeesDao.getByName(name);
-            redisTemplate.opsForValue().set("employees:"+employees.getName(),employees,100,TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set("employees:"+employees.getName(),employees);
+            //redisTemplate.opsForValue().set("employees:"+employees.getName(),employees,100,TimeUnit.SECONDS);
         }
         lock.unlock();
         long end = System.currentTimeMillis();
@@ -118,7 +127,8 @@ public class EmployeesServiceImpl implements EmployeesService {
         }
         if (employees==null){
             employees=employeesDao.getByName(name);
-            redisTemplate.opsForValue().set("employees:"+employees.getName(),employees,100,TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set("employees:"+employees.getName(),employees);
+            //redisTemplate.opsForValue().set("employees:"+employees.getName(),employees,100,TimeUnit.SECONDS);
         }
         readLock.unlock();
         long end = System.currentTimeMillis();
@@ -148,12 +158,13 @@ public class EmployeesServiceImpl implements EmployeesService {
         }
         if (employees==null){
             employees=employeesDao.getByName(name);
-            redisTemplate.opsForValue().set("employees:"+employees.getName(),employees,100,TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set("employees:"+employees.getName(),employees);
+            //redisTemplate.opsForValue().set("employees:"+employees.getName(),employees,100,TimeUnit.SECONDS);
         }
         writeLock.unlock();
         long end = System.currentTimeMillis();
         System.out.println(employeesLock+"耗时："+(end-start));
         return employees;
-    }*/
+    }
 
 }
